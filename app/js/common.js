@@ -56,12 +56,12 @@ $(function () {
 		}
 	});
 
-	if(window.matchMedia("(max-width: 767px)").matches){
+	if (window.matchMedia("(max-width: 767px)").matches) {
 		$("nav ul").find('li').click(function () {
 			$("nav ul").hide();
 			$('.toggle-mnu').removeClass('on');
 		});
-	 }
+	}
 
 	var typed = new Typed('#typed', {
 		strings: ['Разработка сайтов в Бишкеке', 'Настройка и запуск контектсной рекламы'],
@@ -146,19 +146,18 @@ $(function () {
 		}
 	});
 
-	$(".form-call").submit(function(event) { //Change
+	$(".form-call").submit(function (event) { //Change
 		var th = $(this);
-		if (!event.preventDefault())
-		{
+		if (!event.preventDefault()) {
 			$("#send").attr("disabled", true);
 		}
 		$.ajax({
 			type: "POST",
 			url: "mail.php", //Change
 			data: th.serialize()
-		}).done(function() {
+		}).done(function () {
 			th.find(".success").addClass("active");
-			setTimeout(function() {
+			setTimeout(function () {
 				// Done Functions
 				th.find(".success").removeClass("active");
 				th.trigger("reset");

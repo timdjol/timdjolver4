@@ -92,8 +92,8 @@ img
 		color: #fff
 		margin-bottom: 0
 
-.hidden
-	display: none
+// .hidden
+// 	display: none
 
 .more
 	background-color: $text
@@ -846,5 +846,42 @@ h1, h2, b, strong
 
 h3, h4, h5
 	font-family: 'gilroy-semibold', sans-serif
+
+// CURSOR
+
+*
+	cursor: none
+
+#cursor, #aura
+	position: absolute
+	border-radius: 100%
+	transition: .5s cubic-bezier(.75,-1.27,.3,2.33) transform, .2s cubic-bezier(.75,-1.27,.3,2.33) opacity
+	user-select: none
+	pointer-events: none
+	z-index: 10000
+
+#cursor
+	width: 8px
+	height: 8px
+	background-color: rgba($accent, .5)
+	transform: scale(1)
+	&.active
+		opacity: 0
+		transform: scale(0)
+
+#aura
+	width: 46px
+	height: 46px
+	border: 1px solid rgba(#000, .2)
+	background-color: rgba(#fff, .027)
+	transform: translate(5px, 5px)
+	&.active
+		border: 1.2px solid rgba($accent, .33)
+		transform: scale(1.2)
+
+#aura.hidden,
+#cursor.hidden
+	transform: scale(.001)
+
 
 @import "media" // Always at the end

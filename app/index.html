@@ -43,6 +43,9 @@
 </head>
 
 <body>
+	<div id="cursor"></div>
+	<div id="aura"></div>
+
 	<header>
 		<div class="container">
 			<div class="row">
@@ -339,7 +342,8 @@
 						<div class="num">2</div>
 						<button class="accordion">Получите оценку и примите решение</button>
 						<div class="accordion-content">
-							<p>После получения ТЗ и первой встречи, мы формируем оценку или список уточнений. Затем уточняем детали и
+							<p>После получения ТЗ и первой встречи, мы формируем оценку или список уточнений. Затем уточняем детали
+								и
 								высылаем коммерческое предложение</p>
 						</div>
 					</div>
@@ -347,7 +351,8 @@
 						<div class="num">3</div>
 						<button class="accordion">Подпишите договор и внесите предоплату</button>
 						<div class="accordion-content">
-							<p>Создание любого проекта, будь то логотип для небольшого ИП или корпоративный бизнес портал для крупной
+							<p>Создание любого проекта, будь то логотип для небольшого ИП или корпоративный бизнес портал для
+								крупной
 								гос. организации начинается с заключения Договора оказания услуг.</p>
 						</div>
 					</div>
@@ -355,9 +360,12 @@
 						<div class="num">4</div>
 						<button class="accordion">Прорисовка графического дизайна</button>
 						<div class="accordion-content">
-							<p>После утверждения структуры будущего сайта в черно-белой гамме, мы приступаем к цветной версии всех веб
-								страниц. С соблюдением всех гайдлайнов и фирменных шрифтов, наш дизайнер рисует для вас цветной эскиз и
-								наш проект менеджер презентует его вам. В случае необходимости, составляются правки по готовому дизайну.
+							<p>После утверждения структуры будущего сайта в черно-белой гамме, мы приступаем к цветной версии всех
+								веб
+								страниц. С соблюдением всех гайдлайнов и фирменных шрифтов, наш дизайнер рисует для вас цветной эскиз
+								и
+								наш проект менеджер презентует его вам. В случае необходимости, составляются правки по готовому
+								дизайну.
 							</p>
 						</div>
 					</div>
@@ -456,15 +464,19 @@
 					<h2>Отзывы</h2>
 					<div class="owl-carousel owl-reviews">
 						<div class="reviews-item">
-							<p>Настоящим письмом выражаем свою искреннюю благодарность за отличную работу, которую проделал Джолдошев
-								Темирлан по редизайну сайта для нашей компании "Zaem". В работе с Темирланом мы увидели профессионализм,
-								знание технологий, системный подход, соблюдение сроков, способность увидеть и понять наши потребности и
+							<p>Настоящим письмом выражаем свою искреннюю благодарность за отличную работу, которую проделал
+								Джолдошев
+								Темирлан по редизайну сайта для нашей компании "Zaem". В работе с Темирланом мы увидели
+								профессионализм,
+								знание технологий, системный подход, соблюдение сроков, способность увидеть и понять наши потребности
+								и
 								предложить лучшее решение. Будем рады дальнейшему сотрудничеству. Желаем Вам дальнейших успехов и
 								процветания.</p>
 							<img src="img/zaem.png" alt="">
 						</div>
 						<div class="reviews-item">
-							<p>Выражаю благодарность Темирлану за создание нашего сайта www.twins.kg! Профессиональный, ответственный
+							<p>Выражаю благодарность Темирлану за создание нашего сайта www.twins.kg! Профессиональный,
+								ответственный
 								и доброжелательное отношение, оперативное внесение всех необходимых корректировок и качественное
 								выполнение работ. Лучшее соотношение цены и качества. Готов продолжить сотрудничество с Вами. С
 								уважением, Дамир Алымбек уулу.</p>
@@ -558,6 +570,8 @@
 		</div>
 	</div>
 
+
+
 	<footer>
 		<div class="block contacts" id="contacts">
 			<div class="bg"></div>
@@ -611,40 +625,144 @@
 			</div>
 		</div>
 	</footer>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"
+		integrity="sha512-16esztaSRplJROstbIIdwX3N97V1+pZvV33ABoG1H2OyTttBxEGkTsoIVsiP1iaTtM8b3+hu2kB6pQ4Clr5yug=="
+		crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
+	<script>
+
+		// After update OptimizedHTML5
+		let cx, cy, mouseX, mouseY, posX, posY, clientX, clientY, dx, dy, tiltx, tilty, request, radius, degree
+
+		document.addEventListener('DOMContentLoaded', () => {
+
+			// Custom JS
+
+			const body = document.querySelector('body')
+
+			cx = window.innerWidth / 2
+			cy = window.innerHeight / 2
+
+			body.addEventListener('mousemove', e => {
+
+				clientX = e.pageX
+				clientY = e.pageY
+
+				request = requestAnimationFrame(updateMe)
+
+				mouseCoords(e)
+				cursor.classList.remove('hidden')
+				follower.classList.remove('hidden')
+
+			})
+
+			function updateMe() {
+
+				dx = clientX - cx
+				dy = clientY - cy
+				tiltx = dy / cy
+				tilty = dx / cx
+				radius = Math.sqrt(Math.pow(tiltx, 2) + Math.pow(tilty, 2))
+				degree = radius * 12
+				gsap.to('.content', 1, { transform: `rotate3d( ${tiltx}, ${tilty}, 0, ${degree}deg )` })
+
+			}
+
+
+			const cursor = document.getElementById('cursor'),
+				follower = document.getElementById('aura'),
+				links = document.getElementsByTagName('a')
+
+			mouseX = 0, mouseY = 0, posX = 0, posY = 0
+
+			function mouseCoords(e) {
+
+				mouseX = e.pageX
+				mouseY = e.pageY
+
+			}
+
+			gsap.to({}, .01, {
+
+				repeat: -1,
+
+				onRepeat: () => {
+
+					posX += (mouseX - posX) / 5
+					posY += (mouseY - posY) / 5
+
+					gsap.set(cursor, {
+						css: {
+							left: mouseX,
+							top: mouseY
+						}
+					})
+
+					gsap.set(follower, {
+						css: {
+							left: posX - 24,
+							top: posY - 24
+						}
+					})
+
+				}
+
+			})
+
+			for (let i = 0; i < links.length; i++) {
+
+				links[i].addEventListener('mouseover', () => {
+					cursor.classList.add('active')
+					follower.classList.add('active')
+				})
+
+				links[i].addEventListener('mouseout', () => {
+					cursor.classList.remove('active')
+					follower.classList.remove('active')
+				})
+
+			}
+
+			body.addEventListener('mouseout', () => {
+				cursor.classList.add('hidden')
+				follower.classList.add('hidden')
+			})
+
+		})
+	</script>
 
 	<script src="js/scripts.min.js?ver=1.3"></script>
 
 	<!-- Yandex.Metrika counter -->
 	<script>
-		(function (d, w, c) {
-			(w[c] = w[c] || []).push(function () {
-				try {
-					w.yaCounter47584411 = new Ya.Metrika2({
-						id: 47584411,
-						clickmap: true,
-						trackLinks: true,
-						accurateTrackBounce: true,
-						webvisor: true
-					});
-				} catch (e) {
-				}
-			});
+			(function (d, w, c) {
+				(w[c] = w[c] || []).push(function () {
+					try {
+						w.yaCounter47584411 = new Ya.Metrika2({
+							id: 47584411,
+							clickmap: true,
+							trackLinks: true,
+							accurateTrackBounce: true,
+							webvisor: true
+						});
+					} catch (e) {
+					}
+				});
 
-			var n = d.getElementsByTagName("script")[0],
-				s = d.createElement("script"),
-				f = function () {
-					n.parentNode.insertBefore(s, n);
-				};
-			s.type = "text/javascript";
-			s.async = true;
-			s.src = "https://mc.yandex.ru/metrika/tag.js";
-			if (w.opera == "[object Opera]") {
-				d.addEventListener("DOMContentLoaded", f, false);
-			} else {
-				f();
-			}
-		})(document, window, "yandex_metrika_callbacks2");
+				var n = d.getElementsByTagName("script")[0],
+					s = d.createElement("script"),
+					f = function () {
+						n.parentNode.insertBefore(s, n);
+					};
+				s.type = "text/javascript";
+				s.async = true;
+				s.src = "https://mc.yandex.ru/metrika/tag.js";
+				if (w.opera == "[object Opera]") {
+					d.addEventListener("DOMContentLoaded", f, false);
+				} else {
+					f();
+				}
+			})(document, window, "yandex_metrika_callbacks2");
 	</script>
 	<noscript><img src="https://mc.yandex.ru/watch/47584411" style="position:absolute; left:-9999px;" alt="Yandex">
 	</noscript>
